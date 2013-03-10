@@ -10,9 +10,9 @@ print "Content-Type: text/html\n"
 form = cgi.FieldStorage()
 nombre = form.getvalue("juego")
 
-#datos= {'%s' %nombre}
-#r = requests.get('http://ecs.amazonaws.com/onca/xml?AWSAccessKeyId=AKIAJHX3JO2RPYRT6BGA&AssociateTag=proyeamazo-21&Operation=ItemSearch&ResponseGroup=Offers%2C%20ItemAttributes&SearchIndex=VideoGames&Service=AWSECommerceService&Timestamp=2013-03-07T11%3A45%3A40.000Z&Version=2011-08-01&Signature=G1Fx1wZVcXIhV1dxB7wg%2F5TrXaAhm2MFkLEDqE9j80c%3D&Keywords=', params=datos)
-#url= r.text
+datos= {'AWSAccessKeyID': 'AKIAJHX3JO2RPYRT6BGA', 'AssociateTag': 'proyeamazo-21', 'Operation': 'ItemSearch', 'ResponseGroup': 'Offers%2C%20ItemAttributes', 'SearchIndex': 'VideoGames', 'Service': 'AWSECommerceService', 'Timestamp': '', 'Version': '2011-08-01', 'Signature': '', 'Keywords': '%s' %nombre}
+busqeda = requests.get('http://ecs.amazonaws.com/onca/xml?', params=datos)
+url= busqeda.text
 
 #xml = etree.fromstring(url)
 #xml = etree.parse("xml")
@@ -25,7 +25,7 @@ nombre = form.getvalue("juego")
 
 #print nombre
 
+#http://ecs.amazonaws.com/onca/xml?AWSAccessKeyId=AKIAJHX3JO2RPYRT6BGA&AssociateTag=proyeamazo-21&Operation=ItemSearch&ResponseGroup=Offers%2C%20ItemAttributes&SearchIndex=VideoGames&Service=AWSECommerceService&Timestamp=2013-03-07T11%3A45%3A40.000Z&Version=2011-08-01&Signature=G1Fx1wZVcXIhV1dxB7wg%2F5TrXaAhm2MFkLEDqE9j80c%3D&Keywords=
 
 
-#http://ecs.amazonaws.com/onca/xml?AWSAccessKeyId=AKIAJHX3JO2RPYRT6BGA&AssociateTag=proyeamazo-21&Keywords=Fallout%20New%20Vegas&Operation=ItemSearch&ResponseGroup=Offers%2C%20ItemAttributes&SearchIndex=All&Service=AWSECommerceService&Timestamp=2013-03-06T09%3A04%3A37.000Z&Version=2011-08-01&Signature=Ez%2Flw6I7LOQxh3qlL83TeqD3cNtr0rZF8FI9ucCmgg4%3D
 
