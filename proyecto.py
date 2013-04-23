@@ -25,10 +25,11 @@ plataforma = xml.xpath("/ns:ItemSearchResponse/ns:Items/ns:Item/ns:ItemAttribute
 menos_nuevo = xml.xpath("/ns:ItemSearchResponse/ns:Items/ns:Item/ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()", namespaces=ns)
 menos_usado = xml.xpath("/ns:ItemSearchResponse/ns:Items/ns:Item/ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()", namespaces=ns)
 
-
-pru = xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item/ns:ItemAttributes', namespaces=ns)[0]
-pru.xpath('ns:Title/text()', namespaces=ns)
-pru.xpath('ns:Platform/text()', namespaces=ns)
+productos= len(xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item/ns:ItemAttributes', namespaces=ns))
+for i in xrange(productos):
+    lista= xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item/ns:ItemAttributes', namespaces=ns)[i]
+    print lista.xpath('ns:Title/text()', namespaces=ns)
+    print lista.xpath('ns:Platform/text()', namespaces=ns)
 
 
 	
