@@ -34,8 +34,7 @@ for i in xrange(1):
 
 @bottle.route('/')
 def home_page():
-	datos = [nombre,plataforma,menos_nuevo,menos_usado]
-	return bottle.template('respuesta2.html', respuesta=datos)
+	return bottle.template('respuesta.html', title=nombre, platform=plataforma, nuevo=menos_nuevo, usado=menos_usado)
 bottle.debug(True)
 bottle.run(host='localhost',port=8080)
 
