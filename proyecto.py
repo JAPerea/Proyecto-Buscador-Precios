@@ -18,13 +18,26 @@ url= busqueda.text
 xml = etree.parse("xml2")
 ns = {"ns": "http://webservices.amazon.com/AWSECommerceService/2011-08-01"}
 
-productos= len(xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns))
-for i in xrange(productos):
+#productos= len(xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns))
+#for i in xrange(productos):
+#    	lista= xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns)[i]
+#    	print lista.xpath('ns:ItemAttributes/ns:Title/text()', namespaces=ns)
+#    	print lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns)
+#	print lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns)
+#	print lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns)
+for i in xrange(1):
     	lista= xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns)[i]
-    	print lista.xpath('ns:ItemAttributes/ns:Title/text()', namespaces=ns)
-    	print lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns)
-	print lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns)
-	print lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns)
+    	nombre=lista.xpath('ns:ItemAttributes/ns:Title/text()', namespaces=ns)
+    	plataforma=lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns)
+	menos_nuevo=lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns)
+	menos_usado=lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns)
+
+@bottle.route('/')
+def home_page():
+	datos = [nombre,plataforma,menos_nuevo,menos_usado]
+	return bottle.template('respuesta2.html', respuesta=datos)
+bottle.debug(True)
+bottle.run(host='localhost',port=8080)
 
 
 	
