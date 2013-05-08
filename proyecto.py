@@ -2,21 +2,21 @@ import cgi
 from lxml import etree
 import requests
 import bottle
+import bottlenose
 
-AWS_KEY = 'AKIAJHX3JO2RPYRT6BGA'
-SECRET_KEY = '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'
-ASSOCIATE_TAG = 'proyeamazo-21'
+#AWS_KEY = 'AKIAJHX3JO2RPYRT6BGA'
+#SECRET_KEY = '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'
+#ASSOCIATE_TAG = 'proyeamazo-21'
 
-print "Content-Type: text/html\n"
-form = cgi.FieldStorage()
-nombre = form.getvalue("juego")
+#print "Content-Type: text/html\n"
+#form = cgi.FieldStorage()
+#nombreform = form.getvalue("juego")
 
-datos= {'AWSAccessKeyID': 'AKIAJHX3JO2RPYRT6BGA', 'AssociateTag': 'proyeamazo-21', 'Operation': 'ItemSearch', 'ResponseGroup': 'Offers%2C%20ItemAttributes', 'SearchIndex': 'VideoGames', 'Service': 'AWSECommerceService', 'Timestamp': '', 'Version': '2011-08-01', 'Signature': '', 'Keywords': '%s' %nombre}
-busqueda = requests.get('http://ecs.amazonaws.com/onca/xml?', params=datos)
-url= busqueda.text
+amazon = bottlenose.Amazon('AKIAJHX3JO2RPYRT6BGA','vA/k1nDIn35Sk/Wk0LlzvsPsb9wfiSTsyOWjtX0H','proyeamazo-21')
 
+busqueda = amazon.ItemSearch(SearchIndex="VideoGames", ResponseGroup="ItemAttributes, Offers", Keywords="Fallout New Vegas")
 
-xml = etree.parse("xml2")
+xml = etree.fromstring(busqueda)
 ns = {"ns": "http://webservices.amazon.com/AWSECommerceService/2011-08-01"}
 
 #productos= len(xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns))
