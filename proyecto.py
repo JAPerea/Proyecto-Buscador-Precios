@@ -12,12 +12,25 @@ import bottlenose
 #form = cgi.FieldStorage()
 #nombreform = form.getvalue("juego")
 
-amazon = bottlenose.Amazon('AKIAJHX3JO2RPYRT6BGA','vA/k1nDIn35Sk/Wk0LlzvsPsb9wfiSTsyOWjtX0H','proyeamazo-21')
+@bottle.route('/')
+def pag_principal():
+	return bottle.template('index.html')
 
-busqueda = amazon.ItemSearch(SearchIndex="VideoGames", ResponseGroup="ItemAttributes, Offers", Keywords="Fallout New Vegas")
+@bottle.route('/busquedajuego', method='POST')
+def bus_juego():
+	juego = bottle.request.forms.get("juego")
+	amazon = bottlenose.Amazon('AKIAJHX3JO2RPYRT6BGA','vA/k1nDIn35Sk/		Wk0LlzvsPsb9wfiSTsyOWjtX0H','proyeamazo-21')
+	busqueda = amazon.ItemSearch(SearchIndex="VideoGames", ResponseGroup="ItemAttributes, Offers", Keywords="Fallout New Vegas")
+	xml = etree.fromstring(busqueda)
+	ns = {"ns": "http://webservices.amazon.com/AWSECommerceService/2011-08-01"}
+	for i in xrange(1):
+    		lista= xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns)[i]
+    		nombre=lista.xpath('ns:ItemAttributes/ns:Title/text()', namespaces=ns)
+    		plataforma=lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns)
+		menos_nuevo=lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns)
+		menos_usado=lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns)
+	return bottle.template('respuesta.html', title=nombre, platform=plataforma, nuevo=menos_nuevo, usado=menos_usado)
 
-xml = etree.fromstring(busqueda)
-ns = {"ns": "http://webservices.amazon.com/AWSECommerceService/2011-08-01"}
 
 #productos= len(xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns))
 #for i in xrange(productos):
@@ -26,16 +39,9 @@ ns = {"ns": "http://webservices.amazon.com/AWSECommerceService/2011-08-01"}
 #    	print lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns)
 #	print lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns)
 #	print lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns)
-for i in xrange(1):
-    	lista= xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns)[i]
-    	nombre=lista.xpath('ns:ItemAttributes/ns:Title/text()', namespaces=ns)
-    	plataforma=lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns)
-	menos_nuevo=lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns)
-	menos_usado=lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns)
+	
 
-@bottle.route('/')
-def home_page():
-	return bottle.template('respuesta.html', title=nombre, platform=plataforma, nuevo=menos_nuevo, usado=menos_usado)
+
 bottle.debug(True)
 bottle.run(host='localhost',port=8080)
 
