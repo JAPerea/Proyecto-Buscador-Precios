@@ -6,7 +6,7 @@
   </head>
   <body>
 	<h1>Bienvenidos al buscador de videojuegos en Amazon</h1>
-    <form action="proyecto.py" method="post">
+    <form action="/respuesta" method="post">
 	<h3>Introduce el nombre del juego:</h3>
 	<TEXTAREA name="juego" rows="1">	
 	</TEXTAREA><br />
@@ -18,6 +18,5 @@
         </select>
         <input type='submit' value='Buscar'>
     </form>
-	<p> <a href="respuesta.html">Buscar</a></p>
   </body>
 </html> 
