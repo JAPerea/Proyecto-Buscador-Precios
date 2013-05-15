@@ -12,11 +12,11 @@ import bottlenose
 def pag_principal():
 	return bottle.template('index')
 
-@bottle.route('/respuesta', method='POST')
+@bottle.route('/busquedajuego', method='POST')
 def bus_juego():
 	juego = bottle.request.forms.get("juego")
 	amazon = bottlenose.Amazon('AKIAJHX3JO2RPYRT6BGA','vA/k1nDIn35SkWk0LlzvsPsb9wfiSTsyOWjtX0H','proyeamazo-21')
-	busqueda = amazon.ItemSearch(SearchIndex="VideoGames", ResponseGroup="ItemAttributes, Offers", Keywords='%s') % juego
+	busqueda = amazon.ItemSearch(SearchIndex="VideoGames", ResponseGroup="ItemAttributes, Offers", Keywords=juego)
 	xml = etree.fromstring(busqueda)
 	ns = {"ns": "http://webservices.amazon.com/AWSECommerceService/2011-08-01"}
 	for i in xrange(1):
@@ -25,7 +25,7 @@ def bus_juego():
     		plataforma=lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns)
 		menos_nuevo=lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns)
 		menos_usado=lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns)
-	return bottle.template('respuesta', title=nombre, platform=plataforma, nuevo=menos_nuevo, usado=menos_usado)
+	return bottle.template('busquedajuego', title=nombre, platform=plataforma, nuevo=menos_nuevo, usado=menos_usado)
 
 
 #productos= len(xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns))
