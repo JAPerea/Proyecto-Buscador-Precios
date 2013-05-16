@@ -28,24 +28,15 @@ def bus_juego():
 	busqueda = busqueda_amazon("VideoGames","ItemAttributes, Offers", juego)
 	xml = etree.fromstring(busqueda)
 	ns = {"ns": "http://webservices.amazon.com/AWSECommerceService/2011-08-01"}
-	for i in xrange(1):
-    	 	lista= xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns)[i]
-    	 	nombre=lista.xpath('ns:ItemAttributes/ns:Title/text()', namespaces=ns)
-    	 	plataforma=lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns)
-	 	menos_nuevo=lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns)
-	 	menos_usado=lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns)
-	return bottle.template('busquedajuego', title=nombre, platform=plataforma, nuevo=menos_nuevo, usado=menos_usado)
+	resultado = []
+	productos= len(xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns))
+	for i in xrange(productos):
+    		lista= xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns)[i]
+    		resultado.append(lista.xpath('ns:ItemAttributes/ns:Title/text()', namespaces=ns))
+    		resultado.append(lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns))
+		resultado.append(lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns))
+		resultado.append(lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns))	
+	return bottle.template('busquedajuego', resultado = resultado)
 	
-
-#productos= len(xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns))
-#for i in xrange(productos):
-#    	lista= xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns)[i]
-#    	print lista.xpath('ns:ItemAttributes/ns:Title/text()', namespaces=ns)
-#    	print lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns)
-#	print lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns)
-#	print lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns)
-	
-
-
 bottle.debug(True)
 bottle.run(host='localhost',port=8080)
