@@ -6,7 +6,6 @@
     <title>Buscador Juegos</title>
   </head>
   <body>
-	<div id="pag">
 	<div id="header">
 	</div>
 	<div id="formulario">
@@ -18,7 +17,6 @@
 	<br>
         <input type='submit' value='Buscar'>
     </form>
-	</div>
 	</div>
   </body>
 </html> 
