@@ -2,21 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="style/estilo.css"> 
     <title>Buscador Juegos</title>
   </head>
   <body>
-	<h1>Bienvenidos al buscador de videojuegos en Amazon</h1>
-    <form action="/respuesta" method="post">
+	<div id="pag">
+	<div id="header">
+	</div>
+	<div id="formulario">
+	<h1>Bienvenidos al buscador de videojuegos en Amazon</h1>    
+	<form action="/busquedajuego" method="POST">
 	<h3>Introduce el nombre del juego:</h3>
-	<TEXTAREA name="juego" rows="1">	
-	</TEXTAREA><br />
-	<h3>Elige Plataforma:</h3>
-        <select type='text' name="plataforma">
-          <option value="XBOX 360" selected="selected">XBOX 360</option>
-          <option value="PC">PC</option>
-          <option value="PS3">PlayStation 3</option>
-        </select>
+	<input type='text' name="juego" size="30">
+	<br>
+	<br>
         <input type='submit' value='Buscar'>
     </form>
+	</div>
+	</div>
   </body>
 </html> 

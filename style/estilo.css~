@@ -1,0 +1,27 @@
+body {
+font-family: 'Verdana', sans-serif;
+margin: 0 auto;
+width: 800px;
+}
+
+h1 {
+text-align: center;
+}
+
+#formulario {
+background: #cddedd;
+padding-left: 20px;
+padding-right: 20px;
+padding-bottom: 30px;
+padding-top: 10px;
+color: #2c739b;
+}
+
+#header {
+background: url("amazon.jpg") no-repeat scroll 0 0;
+height: 115px;
+margin: 0;
+padding: 0;
+border-bottom-style: solid;
+border-bottom-color: #2c739b;
+}
