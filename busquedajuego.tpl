@@ -10,11 +10,22 @@
 	</div>
 	<div id="respuesta">
 	<h1>Precios mas baratos del juego buscado:</h1>
-	<ul>
+	<table>
 		%for i in resultado:
-		<li> {{i}} </li>
+		%	if len(i) > 1:
+				<tr>
+			 	<td>{{i}}</td>
+				</tr>
+		%	else:
+		%		for j in i:
+					<tr>
+					<td>{{j}}</td>
+					</tr>
+			        %end
+			%end		
 		%end
-	</ul>
+	<table>
 	</div>
 </body>
 </html>
+

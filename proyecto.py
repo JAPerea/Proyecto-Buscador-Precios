@@ -23,9 +23,9 @@ def busqueda_amazon(SearchIndex,ResponseGroup,Keywords):
 def pag_principal():
 	return bottle.template('index')
 
-@route('/style/estilo.css')
+@route('/style/:filename#.*#')
 def server_static(filename):
-    return static_file(filename, root='style/')
+    return static_file(filename, root='./style/')
 
 @bottle.route('/busquedajuego', method='POST')
 def bus_juego():
@@ -46,3 +46,11 @@ def bus_juego():
 	
 bottle.debug(True)
 bottle.run(host='localhost',port=8080)
+
+#for i in resultado:
+#     if len(i) > 1:
+#         print i
+#     else:
+#         for j in i:
+#             print j
+
