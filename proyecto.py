@@ -33,16 +33,20 @@ def bus_juego():
 	busqueda = busqueda_amazon("VideoGames","ItemAttributes, Offers", juego)
 	xml = etree.fromstring(busqueda)
 	ns = {"ns": "http://webservices.amazon.com/AWSECommerceService/2011-08-01"}
-	resultado = []
+	nombre = []
+	plataforma = []
+	menosnuevo = []
+	menosusado = []
+	enlace = []
 	productos= len(xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns))
 	for i in xrange(productos):
     		lista= xml.xpath('/ns:ItemSearchResponse/ns:Items/ns:Item', namespaces=ns)[i]
-    		resultado.append(lista.xpath('ns:ItemAttributes/ns:Title/text()', namespaces=ns))
-    		resultado.append(lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns))
-		resultado.append(lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns))
-		resultado.append(lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns))
-		resultado.append(lista.xpath('ns:ItemLinks/ns:ItemLink[1]/ns:URL/text()', namespaces=ns))	
-	return bottle.template('busquedajuego', resultado = resultado)
+    		nombre.append(lista.xpath('ns:ItemAttributes/ns:Title/text()', namespaces=ns))
+    		plataforma.append(lista.xpath('ns:ItemAttributes/ns:Platform/text()', namespaces=ns))
+		menosnuevo.append(lista.xpath('ns:OfferSummary/ns:LowestNewPrice/ns:FormattedPrice/text()', namespaces=ns))
+		menosusado.append(lista.xpath('ns:OfferSummary/ns:LowestUsedPrice/ns:FormattedPrice/text()', namespaces=ns))
+		enlace.append(lista.xpath('ns:ItemLinks/ns:ItemLink[1]/ns:URL/text()', namespaces=ns))	
+	return bottle.template('busquedajuego', nombre = nombre, plataforma = plataforma, menosnuevo = menosnuevo, menosusado= menosusado, enlace = enlace, numero = productos)
 	
 bottle.debug(True)
 bottle.run(host='localhost',port=8080)

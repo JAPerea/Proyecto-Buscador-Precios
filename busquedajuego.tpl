@@ -11,19 +11,22 @@
 	<div id="respuesta">
 	<h1>Precios mas baratos del juego buscado:</h1>
 	<table>
-		%for i in resultado:
-		%	if len(i) > 1:
 				<tr>
-			 	<td>{{i}}</td>
+				<th>Nombre del Juego:</th>
+				<th>Plataforma:</th>
+				<th>Precio Nuevo:</th>
+				<th>Precio Usado:</th>
+				<th id="enla">Enlace a la tienda:</th>
 				</tr>
-		%	else:
-		%		for j in i:
-					<tr>
-					<td>{{j}}</td>
-					</tr>
-			        %end
-			%end		
-		%end
+		%for i in range(numero):
+				<tr>
+			 	<td>{{nombre[i]}}</td>
+				<td>{{plataforma[i]}}</td>
+				<td>{{menosnuevo[i]}}</td>
+				<td>{{menosusado[i]}}</td>
+				<td>{{enlace[i]}}</td>
+				</tr>				
+		%end	
 	<table>
 	</div>
 </body>
