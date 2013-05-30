@@ -20,11 +20,11 @@
 				</tr>
 		%for i in range(numero):
 				<tr>
-			 	<td>{{nombre[i]}}</td>
+			 	<td>{{nombre[i][0]}}</td>
 				<td>{{plataforma[i]}}</td>
-				<td>{{menosnuevo[i]}}</td>
+				<td>{{menosnuevo[i][0]}}</td>
 				<td>{{menosusado[i]}}</td>
-				<td>{{enlace[i]}}</td>
+				<td>{{enlace[i][0]}}</td>
 				</tr>				
 		%end	
 	<table>
