@@ -4,8 +4,8 @@ import bottle
 import bottlenose
 from bottle import route, static_file
 
-AWS_KEY = 'AKIAJHX3JO2RPYRT6BGA'
-SECRET_KEY = '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'
+AWS_KEY = ''
+SECRET_KEY = ''
 ASSOCIATE_TAG = 'proyeamazo-21'
 
 def busqueda_amazon(SearchIndex,ResponseGroup,Keywords):
